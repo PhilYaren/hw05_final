@@ -1,5 +1,5 @@
 from django import forms
-from .models import Follow, Group, Post, Comment
+from .models import Group, Post, Comment
 
 
 class PostForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class PostForm(forms.ModelForm):
         required=False
     )
     image = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={'class':'form-control'}),
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control'}),
 
         required=False
     )
@@ -24,11 +24,12 @@ class CommentForm(forms.ModelForm):
     text = forms.CharField(
         widget=forms.Textarea(
             attrs={
-                'class':'form-control'
+                'class': 'form-control'
             }
         ),
         required=True
     )
+
     class Meta:
         model = Comment
         fields = ('text',)

@@ -13,9 +13,9 @@ from posts.models import Group, Post, User
 from yatube.settings import BASE_DIR, POSTS_PER_PAGE
 
 
-POSTS_ON_LAST_PAGE = randint(1, POSTS_PER_PAGE-1)
+POSTS_ON_LAST_PAGE = randint(1, POSTS_PER_PAGE - 1)
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=BASE_DIR)
-SMALL_GIF = (            
+SMALL_GIF = (
     b'\x47\x49\x46\x38\x39\x61\x02\x00'
     b'\x01\x00\x80\x00\x00\x00\x00\x00'
     b'\xFF\xFF\xFF\x21\xF9\x04\x00\x00'
@@ -94,12 +94,18 @@ class ViewsTests(TestCase):
             text='В чем смысл моей жизни?',
             author=self.user
         )
-        first_response = self.authorised_client.get(reverse('posts:index')).content.decode()
+        first_response = self.authorised_client.get(
+            reverse('posts:index')
+        ).content.decode()
         post.delete()
-        second_response = self.authorised_client.get(reverse('posts:index')).content.decode()
+        second_response = self.authorised_client.get(
+            reverse('posts:index')
+        ).content.decode()
         self.assertEqual(first_response, second_response)
         cache.clear()
-        third_response = self.authorised_client.get(reverse('posts:index')).content.decode()
+        third_response = self.authorised_client.get(
+            reverse('posts:index')
+        ).content.decode()
         self.assertNotEqual(first_response, third_response)
 
 

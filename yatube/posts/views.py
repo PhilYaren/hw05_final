@@ -14,6 +14,7 @@ def pagination(request, obj):
     page_obj = paginator.get_page(page)
     return page_obj
 
+
 @cache_page(20, key_prefix='index_page')
 def index(request):
     template = 'posts/index.html'
@@ -79,8 +80,8 @@ def post_detail(request, post_id):
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(
-            data = request.POST or None,
-            files = request.FILES or None
+            data=request.POST or None,
+            files=request.FILES or None
         )
         if form.is_valid():
             post = form.save(commit=False)
@@ -131,6 +132,7 @@ def post_edit(request, post_id):
         {'form': form, 'is_edit': is_edit, 'post': post}
     )
 
+
 @login_required
 def add_comment(request, post_id):
     form = CommentForm(request.POST or None)
@@ -141,16 +143,18 @@ def add_comment(request, post_id):
         comment.save()
     return redirect('posts:post', post_id)
 
+
 @login_required
 def follow_index(request):
     # информация о текущем пользователе доступна в переменной request.user
     posts = Post.objects.select_related(
-        'group', 'author').filter(author__following__user = request.user)
+        'group', 'author').filter(author__following__user=request.user)
     page_obj = pagination(request, posts)
     context = {
         'page_obj': page_obj
     }
     return render(request, 'posts/follow.html', context)
+
 
 @login_required
 def profile_follow(request, username):
@@ -164,7 +168,7 @@ def profile_follow(request, username):
             author=author
         )
     return redirect('posts:profile', author)
-    
+
 
 @login_required
 def profile_unfollow(request, username):

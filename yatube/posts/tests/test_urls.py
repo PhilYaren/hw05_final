@@ -41,7 +41,9 @@ class PostsUrlsTests(TestCase):
         )
         self.post = reverse('posts:post', args=[PostsUrlsTests.post.pk])
         self.create = reverse('posts:post_create')
-        self.add_comment = reverse('posts:add_comment', args=[PostsUrlsTests.post.pk])
+        self.add_comment = reverse(
+            'posts:add_comment', args=[PostsUrlsTests.post.pk]
+        )
         self.edit = reverse('posts:post_edit', args=[PostsUrlsTests.post.pk])
         self.unexpected = '/unexpected-page/'
         self.request_list = [
@@ -94,7 +96,10 @@ class PostsUrlsTests(TestCase):
             [self.guest_client.get(self.create), '/auth/login/?next=/create/'],
             [self.guest_client.get(self.edit), self.post],
             [self.not_author.get(self.edit), self.post],
-            [self.guest_client.get(self.add_comment), '/auth/login/?next=/posts/1/comment/'],
+            [
+                self.guest_client.get(self.add_comment),
+                '/auth/login/?next=/posts/1/comment/'
+            ],
             [self.not_author.get(self.add_comment), self.post]
         ]
         self.url_to_template = [

@@ -52,7 +52,7 @@ class Post(models.Model):
 
     def __str__(self) -> str:
         return (f'{self.text[:15]}')
-    
+
     def delete(self, using=None, keep_parents=False):
         self.image.delete()
         super().delete()
@@ -81,12 +81,13 @@ class Comment(models.Model):
         auto_now_add=True,
         verbose_name='Дата написания комментари'
     )
+
     class Meta:
         ordering = ['-created']
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
-    
-    def __str__(self) :
+
+    def __str__(self):
         return f'{self.text[:15]}'
 
 
@@ -101,8 +102,15 @@ class Follow(models.Model):
         related_name='following',
         on_delete=models.CASCADE
     )
+
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=('user','author'), name='restricted_multifollow'),
-            models.CheckConstraint(check=~models.Q(user=models.F('author')), name='restricted_self_follow')
+            models.UniqueConstraint(
+                fields=('user', 'author'),
+                name='restricted_multifollow'
+            ),
+            models.CheckConstraint(
+                check=~models.Q(user=models.F('author')),
+                name='restricted_self_follow'
+            )
         ]

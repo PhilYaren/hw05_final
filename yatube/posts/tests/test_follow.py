@@ -1,8 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from yatube import settings
-from posts.forms import PostForm
 from posts.models import Follow, Post, User
+
 
 class TestFollow(TestCase):
     @classmethod
@@ -15,15 +14,18 @@ class TestFollow(TestCase):
             author=cls.following
         )
 
-
     def setUp(self):
         self.author = Client()
         self.author.force_login(self.following)
         self.user_follower = Client()
         self.user_follower.force_login(self.follower)
-        self.follow_author = reverse('posts:profile_follow', args=[self.following])
+        self.follow_author = reverse(
+            'posts:profile_follow', args=[self.following]
+        )
         self.author_profile = reverse('posts:profile', args=[self.following])
-        self.unfollow_author = reverse('posts:profile_unfollow', args=[self.following])
+        self.unfollow_author = reverse(
+            'posts:profile_unfollow', args=[self.following]
+        )
         self.follow_index_with_post = reverse('posts:follow_index')
 
     def test_add_following(self):
@@ -41,7 +43,7 @@ class TestFollow(TestCase):
                 author=self.following
             ).exists()
         )
-    
+
     def test_unfollow(self):
         """Проверка отписки от автора"""
         Follow.objects.create(
@@ -61,7 +63,7 @@ class TestFollow(TestCase):
                 author=self.following
             ).exists()
         )
-    
+
     def test_post_in_follow(self):
         """Пост отображается у подписчика"""
         Follow.objects.create(
