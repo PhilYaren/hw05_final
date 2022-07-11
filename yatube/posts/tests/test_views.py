@@ -101,15 +101,6 @@ class ViewsTests(TestCase):
         cache.clear()
         third_response = self.authorised_client.get(reverse('posts:index')).content.decode()
         self.assertNotEqual(first_response, third_response)
-        
-    # def test_cache_of_index(self):
-    #     """Тестирую работу кэша"""
-    #     first_response = self.authorised_client.get(reverse('posts:index')).content.decode()
-    #     second_response = self.authorised_client.get(reverse('posts:index')).content.decode()
-    #     self.assertEqual(first_response, second_response)
-    #     cache.clear()
-    #     third_response = self.authorised_client.get(reverse('posts:index')).content.decode()
-    #     self.assertNotEqual(first_response, third_response)
 
 
 class PaginatorTests(TestCase):
