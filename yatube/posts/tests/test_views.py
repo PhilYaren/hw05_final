@@ -48,15 +48,15 @@ class ViewsTests(TestCase):
             image=uploaded
         )
 
-    def setUp(self):
-        self.authorised_client = Client()
-        self.authorised_client.force_login(ViewsTests.user)
-        cache.clear()
-
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()
         shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
+
+    def setUp(self):
+        self.authorised_client = Client()
+        self.authorised_client.force_login(ViewsTests.user)
+        cache.clear()
 
     def test_context_post(self):
         """Весь контекст передан на страницу поста"""

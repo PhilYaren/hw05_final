@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
 ]
 
 # Login page and redirect page stated for accounts
@@ -134,14 +134,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = (os.path.join(BASE_DIR, '/static/'))
-
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 #  подключаем движок filebased.EmailBackend
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # указываем директорию, в которую будут складываться файлы писем
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+EMAIL_FILE_PATH = (os.path.join(BASE_DIR, 'sent_emails'))
 
 # Переменная для кол-ва постов
 POSTS_PER_PAGE = 10
@@ -150,14 +149,16 @@ POSTS_PER_PAGE = 10
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 
 # Путь к хранению картинок
-MEDIA_URL = (os.path.join(BASE_DIR, '/media/'))
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
+
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',

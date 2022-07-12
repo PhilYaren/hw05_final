@@ -53,10 +53,6 @@ class Post(models.Model):
     def __str__(self) -> str:
         return (f'{self.text[:15]}')
 
-    def delete(self, using=None, keep_parents=False):
-        self.image.delete()
-        super().delete()
-
 
 class Comment(models.Model):
     post = models.ForeignKey(

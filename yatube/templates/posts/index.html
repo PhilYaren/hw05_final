@@ -2,8 +2,7 @@
 {% load thumbnail %}
 {% block title %} <title> Последние обновления на сайте </title> {% endblock title %}
 
-
-{% block content %} 
+{% block content %}
   <!-- класс py-5 создает отступы сверху и снизу блока -->
   <div class="container py-5">
     <h1> Последние обновления на сайте </h1>
@@ -32,4 +31,5 @@
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
     {% include 'includes/paginator.html'%}
+  </div>
 {% endblock content %}
