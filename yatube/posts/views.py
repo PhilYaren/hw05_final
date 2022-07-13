@@ -1,18 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
-from yatube.settings import POSTS_PER_PAGE
 from .forms import CommentForm, PostForm
 from .models import Follow, Group, Post, User
-
-
-# Create your views here.
-def pagination(request, obj):
-    paginator = Paginator(obj, POSTS_PER_PAGE)
-    page = request.GET.get('page')
-    page_obj = paginator.get_page(page)
-    return page_obj
+from .utils import pagination
 
 
 @cache_page(20, key_prefix='index_page')
@@ -105,6 +96,7 @@ def post_create(request):
     )
 
 
+# Описал ситуацию в слаке
 def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     is_edit = True
@@ -159,8 +151,11 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     # Подписаться на автора
-    author = get_object_or_404(User, username=username)
-    follow_check = not Follow.objects.filter(author=author).exists()
+    author = User.objects.get(username=username)
+    follow_check = not Follow.objects.filter(
+        user=request.user,
+        author=author
+    ).exists()
     # Проверка для исключения 500й ошибки у шаловливых ручек
     if request.user != author and follow_check:
         Follow.objects.create(

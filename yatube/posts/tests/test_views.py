@@ -131,6 +131,7 @@ class PaginatorTests(TestCase):
                 group=PaginatorTests.group
             )for i in range(POSTS_PER_PAGE + POSTS_ON_LAST_PAGE)
         ]
+        cache.clear()
 
     def test_context_index_first_page(self):
         """Весь контекст отображается на главной и работает паджинатор"""
