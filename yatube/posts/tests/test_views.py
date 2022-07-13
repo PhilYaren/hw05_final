@@ -1,6 +1,7 @@
 import tempfile
 import shutil
 from random import randint
+from urllib import request
 from django.test import TestCase, Client, override_settings
 from django.test import Client, TestCase
 from django import forms
