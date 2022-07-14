@@ -100,7 +100,7 @@ def post_create(request):
 def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     is_edit = True
-    if not request.user.is_authenticated or post.author != request.user:
+    if post.author != request.user:
         return redirect('posts:post', post_id)
     if request.method == 'POST':
         form = PostForm(
