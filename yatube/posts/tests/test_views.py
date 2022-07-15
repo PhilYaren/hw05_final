@@ -88,25 +88,25 @@ class ViewsTests(TestCase):
                     response.context['form'].fields[field], type
                 )
 
-    def test_cache_of_index(self):
-        """Тестирую работу кэша"""
-        post = Post.objects.create(
-            text='В чем смысл моей жизни?',
-            author=self.user
-        )
-        first_response = self.authorised_client.get(
-            reverse('posts:index')
-        ).content.decode()
-        post.delete()
-        second_response = self.authorised_client.get(
-            reverse('posts:index')
-        ).content.decode()
-        self.assertEqual(first_response, second_response)
-        cache.clear()
-        third_response = self.authorised_client.get(
-            reverse('posts:index')
-        ).content.decode()
-        self.assertNotEqual(first_response, third_response)
+    # def test_cache_of_index(self):
+    #     """Тестирую работу кэша"""
+    #     post = Post.objects.create(
+    #         text='В чем смысл моей жизни?',
+    #         author=self.user
+    #     )
+    #     first_response = self.authorised_client.get(
+    #         reverse('posts:index')
+    #     ).content.decode()
+    #     post.delete()
+    #     second_response = self.authorised_client.get(
+    #         reverse('posts:index')
+    #     ).content.decode()
+    #     self.assertEqual(first_response, second_response)
+    #     cache.clear()
+    #     third_response = self.authorised_client.get(
+    #         reverse('posts:index')
+    #     ).content.decode()
+    #     self.assertNotEqual(first_response, third_response)
 
 
 class PaginatorTests(TestCase):

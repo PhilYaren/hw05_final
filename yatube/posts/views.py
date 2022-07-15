@@ -34,7 +34,7 @@ def profile(request, username):
     template = 'posts/profile.html'
     author = get_object_or_404(
         User.objects.prefetch_related(
-            'posts', 'following', 'follower'), username=username)
+            'posts'), username=username)
     posts = author.posts.all()
     following = False
     if request.user.is_authenticated:
