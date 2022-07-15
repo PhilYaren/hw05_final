@@ -89,7 +89,7 @@ class TestPostCreationForm(TestCase):
             reverse('posts:profile', args=[self.user])
         )
         self.assertEqual(Post.objects.count(), post_count + 1)
-        latest_post = Post.objects.latest('id')
+        latest_post = Post.objects.latest('pub_date')
         latest_post_check = {
             latest_post.text: self.new_post_data['text'],
             latest_post.group.id: self.new_post_data['group'],

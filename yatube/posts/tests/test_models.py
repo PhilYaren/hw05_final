@@ -39,7 +39,7 @@ class PostModelTest(TestCase):
 
     def test_verbose_name(self):
         """Проверка правильности verbose_name"""
-        post = PostModelTest.post
+        post = Post
         for field, verbose in self.field_verbose.items():
             with self.subTest(field=field):
                 self.assertEqual(
@@ -48,7 +48,7 @@ class PostModelTest(TestCase):
 
     def test_helptext(self):
         """Проверка подсказок у полей"""
-        post = PostModelTest.post
+        post = Post
         for field, helptext in self.field_helptext.items():
             with self.subTest(field=field):
                 self.assertEqual(

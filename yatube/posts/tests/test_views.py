@@ -190,7 +190,7 @@ class PaginatorTests(TestCase):
         )
         self.assertEqual(
             response.context['page_obj'].paginator.count % POSTS_PER_PAGE,
-            POSTS_ON_LAST_PAGE
+            Post.objects.count() % POSTS_PER_PAGE
         )
 
     def test_context_profile_first_page(self):
@@ -223,5 +223,5 @@ class PaginatorTests(TestCase):
         )
         self.assertEqual(
             response.context['page_obj'].paginator.count % POSTS_PER_PAGE,
-            POSTS_ON_LAST_PAGE
+            Post.objects.count() % POSTS_PER_PAGE
         )
