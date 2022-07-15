@@ -19,7 +19,8 @@ def index(request):
 
 def group_posts(request, slug):
     template = 'posts/group_list.html'
-    group = get_object_or_404(Group.objects.prefetch_related('posts__author'), slug=slug)
+    group = get_object_or_404(
+        Group.objects.prefetch_related('posts__author'), slug=slug)
     posts = group.posts.all()
     page_obj = pagination(request, posts)
     context = {
@@ -31,7 +32,9 @@ def group_posts(request, slug):
 
 def profile(request, username):
     template = 'posts/profile.html'
-    author = get_object_or_404(User.objects.prefetch_related('posts','following','follower'), username=username)
+    author = get_object_or_404(
+        User.objects.prefetch_related(
+            'posts', 'following', 'follower'), username=username)
     posts = author.posts.all()
     following = False
     if request.user.is_authenticated:
@@ -51,7 +54,8 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     template = 'posts/post_detail.html'
-    post = get_object_or_404(Post.objects.select_related('author','group'), pk=post_id)
+    post = get_object_or_404(
+        Post.objects.select_related('author', 'group'), pk=post_id)
     author = post.author
     comments = post.comments.all()
     form = CommentForm()
@@ -176,5 +180,3 @@ def profile_unfollow(request, username):
             author=author
         ).delete()
     return redirect('posts:profile', author)
-
-

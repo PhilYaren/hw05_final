@@ -72,7 +72,7 @@ ROOT_URLCONF = 'yatube.urls'
 
 INTERNAL_IPS = [
     '127.0.0.1',
-] 
+]
 
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 TEMPLATES = [
