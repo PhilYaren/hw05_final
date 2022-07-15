@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% block title %} <title> Последние обновления на сайте </title> {% endblock title %}
+{% load cache %}
 
 {% block content %}
   <!-- класс py-5 создает отступы сверху и снизу блока -->
   <div class="container py-5">
     <h1> Последние обновления на сайте </h1>
     {% include 'includes/switcher.html' %}   
+    {% cache 20 index_page %}
     {% for post in page_obj %}
     <article>
       <ul>
@@ -30,6 +32,7 @@
       <a href={% url 'posts:post' post.pk %} class="text-decoration-none">Подробная информация</a>
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
+    {% endcache %}
     {% include 'includes/paginator.html'%}
   </div>
 {% endblock content %}

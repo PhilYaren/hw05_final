@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}<title>Об авторе проекта</title>{% endblock %}
 {% block content %}
+{% load static %}
 <main>
   <div class="container py-5">
     <h1>Привет, я автор сайта <span style="color:red">Ya</span>tube.</h1>
@@ -10,7 +11,16 @@
       По началу, в силу самостоятельного обучения, практика давалась довольно легко, но с течением времени и приходом все новых и новых тем, обучение становилось все более сложным.
       Но я не сдаюсь и хочу открыть для себя новые горизонты!
     </p>
-    <p> P.S. Желаю добра и удачи прочитавшему этот текст!</p>
+    <p>
+      P.S. А еще, у меня есть МЫШЬ!
+    </p>
+    <div class="card" style="width: 18rem;">
+      <img src="{% static 'img/mish.jpeg' %}" class="card-img-top" alt="...">
+      <div class="card-body">
+          <h5 class="card-title">Мышь</h5>
+          <p class="card-text"> Гроза мышей </p>
+      </div>
+    </div>    
   </div>
 </main>
 {% endblock %} 

@@ -1,12 +1,11 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.cache import cache_page
 from .forms import CommentForm, PostForm
 from .models import Follow, Group, Post, User
 from .utils import pagination
 
 
-@cache_page(20, key_prefix='index_page')
+# Кэш перенесен в темплейт
 def index(request):
     template = 'posts/index.html'
     posts = Post.objects.select_related(
